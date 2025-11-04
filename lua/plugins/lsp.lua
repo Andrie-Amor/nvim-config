@@ -20,6 +20,12 @@ return {
                 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = bufnr })
                 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr })
                 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr })
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    buffer = bufnr,
+                    callback = function()
+                        vim.lsp.buf.format({ async = false })
+                    end,
+                })
             end
 
             lspconfig("astro", {
