@@ -1,4 +1,5 @@
 require("config.lazy")
+require("config.keymaps")
 
 vim.o.number = true
 vim.o.relativenumber = true 
