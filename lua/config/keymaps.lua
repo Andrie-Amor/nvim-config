@@ -47,5 +47,6 @@ vim.api.nvim_create_user_command("ArrowKeysToggle", toggle_arrow_keys, {})
 
 vim.keymap.set("n", "<leader>ta", toggle_arrow_keys, { desc = "Toggle arrow keys" })
 
-disable_arrow_keys()
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
+disable_arrow_keys()
