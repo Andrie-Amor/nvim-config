@@ -6,13 +6,17 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         opts = {
-            ensure_installed = { "astro", "texlab", "clangd", "rust_analyzer", "gopls" },
+            ensure_installed = { "astro", "texlab", "clangd", "rust_analyzer", "gopls", "bashls" },
         },
     },
     {
         "neovim/nvim-lspconfig",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+        },
         config = function()
             local lspconfig = vim.lsp.config
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             local on_attach = function(_, bufnr)
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
@@ -30,10 +34,12 @@ return {
 
             lspconfig("astro", {
                 on_attach = on_attach,
+                capabilities = capabilities,
             })
 
             lspconfig("texlab", {
                 on_attach = on_attach,
+                capabilities = capabilities,
                 settings = {
                     texlab = {
                         build = {
@@ -50,14 +56,17 @@ return {
             })
             lspconfig("clangd", {
                 on_attach = on_attach,
+                capabilities = capabilities,
             })
             
             lspconfig("rust_analyzer", {
                 on_attach = on_attach,
+                capabilities = capabilities,
             })
 
             lspconfig("gopls", {
                 on_attach = on_attach,
+                capabilities = capabilities,
                 settings = {
                     gopls = {
                         analyses = {
@@ -68,7 +77,11 @@ return {
                     }
                 }
             })
+
+            lspconfig("bashls", {
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
         end,
     },
 } 
-
